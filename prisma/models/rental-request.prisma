@@ -7,6 +7,13 @@ model RentalRequest {
     respondedAt       DateTime            @default(now())
     createdAt         DateTime            @default(now())
     updatedAt         DateTime            @updatedAt
+    
+    tenantId          String?
+    tenant            User?               @relation(fields: [tenantId], references: [id])
+    propertyId        String?             @unique
+    property          Property?           @relation(fields: [propertyId], references: [id])
+    payment           Payment?
+    review            Review?
 
     @@map("rental-requests")
 }

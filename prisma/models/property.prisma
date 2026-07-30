@@ -1,22 +1,29 @@
 model Property {
-    id          String              @id @default(uuid())
-    title       String
-    description String?
-    addressLine String
-    city        String
-    district    String
-    zipCode     Int?
-    latitude    Float?
-    longitude   Float?
-    price       Decimal
-    pricePeriod PropertyPricePeriod @default(MONTHLY)
-    bedrooms    String?
-    bathrooms   String?
-    areaSqft    String?
-    status      PropertyStatus      @default(AVAILABLE)
-    images      String[]
-    createdAt   DateTime            @default(now())
-    updatedAt   DateTime            @updatedAt
+    id            String              @id @default(uuid())
+    title         String
+    description   String?
+    addressLine   String
+    city          String
+    district      String
+    zipCode       Int?
+    latitude      Float?
+    longitude     Float?
+    price         Decimal
+    pricePeriod   PropertyPricePeriod @default(MONTHLY)
+    bedrooms      String?
+    bathrooms     String?
+    areaSqft      String?
+    status        PropertyStatus      @default(AVAILABLE)
+    images        String[]
+    createdAt     DateTime            @default(now())
+    updatedAt     DateTime            @updatedAt
+    
+    landlordId    String?
+    landlord      User?               @relation(fields: [landlordId], references: [id])
+    categoryId    String?
+    category      Category?           @relation(fields: [categoryId], references: [id])
+    rentalRequest RentalRequest?
+    review        Review[]
 
     @@map("properties")
 }
