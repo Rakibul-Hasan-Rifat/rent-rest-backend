@@ -1,0 +1,22 @@
+model Property {
+    id          String              @id @default(uuid())
+    title       String
+    description String?
+    addressLine String
+    city        String
+    district    String
+    zipCode     Int?
+    latitude    Float?
+    longitude   Float?
+    price       Decimal
+    pricePeriod PropertyPricePeriod @default(MONTHLY)
+    bedrooms    String?
+    bathrooms   String?
+    areaSqft    String?
+    status      PropertyStatus      @default(AVAILABLE)
+    images      String[]
+    createdAt   DateTime            @default(now())
+    updatedAt   DateTime            @updatedAt
+
+    @@map("properties")
+}

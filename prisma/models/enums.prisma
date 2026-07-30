@@ -1,0 +1,59 @@
+enum UserRole {
+    ADMIN
+    TENANT
+    LANDLORD
+}
+
+enum UserStatus {
+    ACTIVE
+    BANNED
+    INACTIVE
+}
+
+enum PropertyPricePeriod {
+    HOURLY
+    DAILY
+    WEEKLY
+    FORTNIGHTLY
+    MONTHLY
+    YEARLY
+}
+
+enum PropertyStatus {
+    RENTED
+    AVAILABLE
+    UNAVAILABLE
+}
+
+enum RentalRequestStatus {
+    PENDING
+    APPROVED
+    REJECTED
+    COMPLETED
+    CANCELLED
+}
+
+enum LeaseDurationType {
+    HOUR
+    DAY
+    WEEK
+    FORTNIGHT
+    MONTH
+}
+
+enum PaymentCurrency {
+    BDT
+    USD
+}
+
+enum PaymentProvider {
+    STRIPE
+    SSLCOMMERZ
+}
+
+enum PaymentStatus {
+    PENDING
+    COMPLETED
+    FAILED
+    REFUNDED
+}
