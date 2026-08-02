@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "payments" ALTER COLUMN "provider" SET DEFAULT 'STRIPE',
+ALTER COLUMN "status" SET DEFAULT 'PENDING';
