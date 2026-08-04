@@ -1,6 +1,6 @@
 class AppError extends Error {
 
-    constructor(public statusCode: number, public massage: string, public errorDetails: string) {
+    constructor(public statusCode: number, public massage: string, public errorDetails?: string) {
         super(massage)
         this.statusCode = statusCode
         this.errorDetails = errorDetails

@@ -1,12 +1,12 @@
 import { Response } from "express";
 
-const sendResponse = <T>(res: Response, { statusCode, message, data }: { statusCode: number, message: string, data: T }) => {
+const sendResponse = <T>(res: Response, { success, statusCode, message, data, error = null }: { success: boolean, statusCode: number, message: string, data?: T, error?: unknown }) => {
     res.status(statusCode).send({
-        success: true,
+        success,
         message,
         data,
         meta: {},
-        error: null
+        error
     })
 };
 

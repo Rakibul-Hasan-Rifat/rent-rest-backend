@@ -11,28 +11,6 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-    // const result = await prisma.user.createMany({
-    //     data: [
-    //         {
-    //             name: "Rakibul Hasan",
-    //             email: "rakibul.hasan@gmail.com",
-    //             password: await bcrypt.hash("12345", envVars.bcrypt_salt),
-    //             role: UserRole.ADMIN,
-    //         },
-    //         {
-    //             name: "Rifat",
-    //             email: "rifat@gmail.com",
-    //             password: await bcrypt.hash("12345", envVars.bcrypt_salt),
-    //             role: UserRole.TENANT
-    //         },
-    //         {
-    //             name: "Arafat",
-    //             email: "arafat@gmail.com",
-    //             password: await bcrypt.hash("12345", envVars.bcrypt_salt),
-    //             role: UserRole.LANDLORD
-    //         }
-    //     ]
-    // })
 
     const response = await Promise.all([
         prisma.user.create({
