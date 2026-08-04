@@ -4,7 +4,6 @@ import envVars from "../../config/envVars";
 import ICredentials from "./auth.interface";
 import AppError from "../../utils/app-error";
 import { createToken, verifyToken } from "../../utils/jwt";
-import { JwtPayload } from "jsonwebtoken";
 
 
 const loginService = async (payload: ICredentials) => {
