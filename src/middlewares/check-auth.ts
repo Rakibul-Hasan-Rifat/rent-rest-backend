@@ -20,11 +20,12 @@ const checkAuth = (...roles: UserRole[]) => {
         // getting user from db and throwing error if not available in db
         const doesUserExist = await prisma.user.findFirstOrThrow({ where: { email: decoded.email } })
 
-        // 
+        // user status check
         if (doesUserExist.status === "BANNED" || doesUserExist.status === "INACTIVE") {
             throw new AppError(403, `Permission denied - User is ${doesUserExist.status.toLowerCase()}`)
         }
 
+        // user's role check for the permission or denial
         if (roles.length && !roles.includes(doesUserExist.role)) {
             throw new AppError(403, "Access denied - You are not permissible.")
         }

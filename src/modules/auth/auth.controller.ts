@@ -29,6 +29,17 @@ const login = catchAsync(async (req: Request, res: Response, next: NextFunction)
     })
 });
 
+const logout = catchAsync(async (_, res: Response)=> {
+    await authServices.logoutService(res);
+
+    sendResponse(res, {
+        success: true,
+        statusCode: 200,
+        message: "Logout is successful!",
+        data: null
+    })
+})
+
 const refreshToken = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     console.log(req.cookies);
     
@@ -46,6 +57,7 @@ const refreshToken = catchAsync(async (req: Request, res: Response, next: NextFu
 
 const authControllers = {
     login,
+    logout,
     refreshToken
 }
 

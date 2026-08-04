@@ -4,6 +4,7 @@ import envVars from "../../config/envVars";
 import ICredentials from "./auth.interface";
 import AppError from "../../utils/app-error";
 import { createToken, verifyToken } from "../../utils/jwt";
+import { Response } from "express";
 
 
 const loginService = async (payload: ICredentials) => {
@@ -26,6 +27,12 @@ const loginService = async (payload: ICredentials) => {
     const refreshToken = createToken({ id, email, role }, envVars.jwt_refresh_secret, "30d");
 
     return { accessToken, refreshToken };
+}
+
+const logoutService = async (res: Response) => {
+    res.clearCookie("access-token");
+    res.clearCookie("refresh-token");
+    return
 }
 
 const refreshTokenService = async (token: string, payload: ICredentials) => {
@@ -60,6 +67,7 @@ const refreshTokenService = async (token: string, payload: ICredentials) => {
 
 const authServices = {
     loginService,
+    logoutService,
     refreshTokenService
 }
 
