@@ -13,6 +13,21 @@ const getAllUsers = catchAsync(async (req: Request, res: Response, next: NextFun
         data: result,
     })
 })
+
+const updateUserStatus = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const { userId } = req.params;
+    const { status } = req.body;
+
+    const result = await adminServices.updateUserStatus(userId as string, status);
+
+    sendResponse(res, {
+        success: true,
+        statusCode: 200,
+        message: "User status updated successfully",
+        data: result,
+    })
+})
+
 const getAllProperties = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const result = await adminServices.retrieveAllProperties();
 
@@ -34,6 +49,6 @@ const getAllRentals = catchAsync(async (req: Request, res: Response, next: NextF
     })
 })
 
-const adminControllers = {getAllUsers, getAllProperties, getAllRentals};
+const adminControllers = {getAllUsers, getAllProperties, getAllRentals, updateUserStatus};
 
 export default adminControllers;
