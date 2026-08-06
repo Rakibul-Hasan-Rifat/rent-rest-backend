@@ -25,47 +25,10 @@ const getPropertyById = catchAsync(async (req: Request, res: Response, next: Nex
     })
 })
 
-const createProperty = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const result = await propertyServices.insertPropertyIntoDb(req.body);
-
-    sendResponse(res, {
-        success: true,
-        statusCode: 201,
-        message: "Property is created successfully",
-        data: result,
-        error: null
-    })
-})
-
-const updateProperty = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const result = await propertyServices.updatePropertyByIdIntoDb(req.params.propertyId as string, req.body)
-
-    sendResponse(res, {
-        success: true,
-        statusCode: 201,
-        message: "Property is updated successfully",
-        data: result,
-        error: null
-    })
-});
-
-const deleteProperty = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const result = await propertyServices.deletePropertyByIdFromdb(req.params.propertyId as string)
-    sendResponse(res, {
-        success: true,
-        statusCode: 201,
-        message: "Property is created successfully",
-        data: result,
-        error: null
-    })
-});
 
 const propertyControllers = {
     getProperties,
     getPropertyById,
-    createProperty,
-    updateProperty,
-    deleteProperty
 }
 
 export default propertyControllers;

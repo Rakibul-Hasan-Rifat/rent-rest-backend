@@ -5,7 +5,22 @@ import ICredentials from "./auth.interface";
 import AppError from "../../utils/app-error";
 import { createToken, verifyToken } from "../../utils/jwt";
 import { Response } from "express";
+import { Prisma } from "../../../prisma/generated/prisma/client";
 
+const registerUser = async (payload: Prisma.UserCreateInput) => {
+
+    const { password } = payload;
+    const hashedPassword = await bcrypt.hash(password, Number(envVars.bcrypt_salt))
+
+    const response = await prisma.user.create({
+        data: {
+            ...payload,
+            password: hashedPassword
+        }
+    })
+
+    return response;
+}
 
 const loginService = async (payload: ICredentials) => {
 
@@ -66,6 +81,7 @@ const refreshTokenService = async (token: string, payload: ICredentials) => {
 }
 
 const authServices = {
+    registerUser,
     loginService,
     logoutService,
     refreshTokenService

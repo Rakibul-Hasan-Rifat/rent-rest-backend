@@ -4,6 +4,17 @@ import catchAsync from "../../utils/catch-async";
 import sendResponse from "../../utils/send-response";
 import envVars from "../../config/envVars";
 
+const register = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const result = await authServices.registerUser(req.body)
+
+    sendResponse(res, {
+        success: true, 
+        statusCode: 201,
+        message: "User is created successfully!",
+        data: result
+    })
+});
+
 const login = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const result = await authServices.loginService(req.body)
 
@@ -56,6 +67,7 @@ const refreshToken = catchAsync(async (req: Request, res: Response, next: NextFu
 })
 
 const authControllers = {
+    register,
     login,
     logout,
     refreshToken

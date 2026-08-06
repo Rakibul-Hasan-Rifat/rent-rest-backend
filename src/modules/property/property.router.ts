@@ -5,8 +5,5 @@ const propertyRouter = Router();
 
 propertyRouter.get("/", propertyControllers.getProperties)
 propertyRouter.get("/:propertyId", propertyControllers.getPropertyById)
-propertyRouter.post("/landlord", propertyControllers.createProperty)
-propertyRouter.put("/landlord/:propertyId", propertyControllers.updateProperty)
-propertyRouter.delete("/landlord/:propertyId", propertyControllers.deleteProperty)
 
 export default propertyRouter;

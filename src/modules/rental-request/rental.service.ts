@@ -16,25 +16,10 @@ const retrieveRentalById = async (rentalId: string) => {
     return response
 }
 
-const retrieveRentalByLandlord = async (landlordId: string) => {
-    const response = await prisma.rentalRequest.findMany({where: {property: {landlordId}}, include: {property: true}})
-    return response
-}
-
-const updateRentalStatusIntoDb = async (rentalId: string, status: RentalRequestStatus) => {
-    const response = await prisma.rentalRequest.update({
-        where: { id: rentalId },
-        data: { status }
-    })
-    return response
-}
-
 const rentalServices = {
     retrieveRentalsFromDb,
     insertRentalsIntoDb,
-    retrieveRentalById,
-    retrieveRentalByLandlord,
-    updateRentalStatusIntoDb
+    retrieveRentalById
 }
 
 export default rentalServices
