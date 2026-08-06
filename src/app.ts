@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import propertyRouter from "./modules/property/property.router";
 import categoryRouter from "./modules/category/category.router";
 import rentalRouter from "./modules/rental-request/rental.router";
+import adminRouter from "./modules/admin/admin.route";
 
 const app: Application = express();
 
@@ -17,6 +18,7 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/properties", propertyRouter);
 app.use("/api/v1/categories", categoryRouter);
 app.use("/api/v1/rentals", rentalRouter);
+app.use("/api/v1/admin", adminRouter);
 
 app.get("/", (req: Request, res: Response) => {
     res.status(200).json({

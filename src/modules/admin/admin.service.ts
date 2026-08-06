@@ -1,0 +1,29 @@
+import { UserStatus } from "../../../prisma/generated/prisma/enums";
+import prisma from "../../lib/prisma";
+
+const retrieveAllUsers = async () => {
+    const response = await prisma.user.findMany();
+    return response;
+};
+
+const retrieveAllProperties = async () => {
+    const response = await prisma.property.findMany();
+    return response;
+};
+
+const retrieveAllRentals = async () => {
+    const response = await prisma.rentalRequest.findMany();
+    return response;
+};
+
+const updateUserStatus = async (userId: string, status: UserStatus) => {
+    const response = await prisma.user.update({
+        where: { id: userId },
+        data: { status }
+    });
+    return response;
+};
+
+const adminServices = { retrieveAllUsers, retrieveAllProperties, retrieveAllRentals, updateUserStatus };
+
+export default adminServices;
