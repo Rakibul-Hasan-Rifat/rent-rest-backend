@@ -2,17 +2,24 @@ import { UserStatus } from "../../../prisma/generated/prisma/enums";
 import prisma from "../../lib/prisma";
 
 const retrieveAllUsers = async () => {
-    const response = await prisma.user.findMany();
+    const response = await prisma.user.findMany({
+        orderBy: { createdAt: "desc" },
+        omit: { password: true }
+    });
     return response;
 };
 
 const retrieveAllProperties = async () => {
-    const response = await prisma.property.findMany();
+    const response = await prisma.property.findMany({
+        orderBy: { createdAt: "desc" }
+    });
     return response;
 };
 
 const retrieveAllRentals = async () => {
-    const response = await prisma.rentalRequest.findMany();
+    const response = await prisma.rentalRequest.findMany({
+        orderBy: { createdAt: "desc" }
+    });
     return response;
 };
 

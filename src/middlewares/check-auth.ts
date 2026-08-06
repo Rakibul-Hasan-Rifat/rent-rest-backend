@@ -11,7 +11,7 @@ const checkAuth = (...roles: UserRole[]) => {
 
         // destructuring token from cookies and throwing errors if not found
         const { ["access-token"]: accessToken } = req.cookies;
-        if (!accessToken) throw new AppError(401, "Token missing - Acess denied. 🤔")
+        if (!accessToken) throw new AppError(401, "Token missing - Access denied. 🤔")
 
         // token verification
         const decoded = verifyToken(accessToken, envVars.jwt_access_secret);
