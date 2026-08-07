@@ -13,6 +13,11 @@ landlordRouter.post(
     validateSchema(createPropertySchema),
     landlordControllers.createProperty);
 
+    landlordRouter.get(
+    "/properties",
+    checkAuth(UserRole.LANDLORD),
+    landlordControllers.getPropertiesByLandlord);
+
 landlordRouter.put(
     "/properties/:propertyId",
     checkAuth(UserRole.LANDLORD),
@@ -25,12 +30,12 @@ landlordRouter.delete(
     landlordControllers.deleteProperty);
 
 landlordRouter.get(
-    "/rentals",
+    "/rental-requests",
     checkAuth(UserRole.LANDLORD),
     landlordControllers.getRentalByLandlord);
     
 landlordRouter.patch(
-    "/rentals/:rentalId",
+    "/rental-requests/:rentalId",
     checkAuth(UserRole.LANDLORD),
     validateSchema(updateRentalStatusSchema),
     landlordControllers.updateRentalByLandlord);

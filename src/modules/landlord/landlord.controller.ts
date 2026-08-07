@@ -15,6 +15,18 @@ const createProperty = catchAsync(async (req: Request, res: Response, next: Next
     })
 })
 
+const getPropertiesByLandlord = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const result = await landlordServices.getPropertiesFromDb(req.user?.id);
+
+    sendResponse(res, {
+        success: true,
+        statusCode: 200,
+        message: "Properties are retrieved successfully!",
+        data: result,
+        error: null
+    })
+})
+
 const updateProperty = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const result = await landlordServices.updatePropertyByIdIntoDb(req.params.propertyId as string, req.body)
 
@@ -28,7 +40,7 @@ const updateProperty = catchAsync(async (req: Request, res: Response, next: Next
 });
 
 const deleteProperty = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const result = await landlordServices.deletePropertyByIdFromdb(req.params.propertyId as string)
+    const result = await landlordServices.deletePropertyByIdFromdb(req.user?.id, req.params.propertyId as string)
     sendResponse(res, {
         success: true,
         statusCode: 201,
@@ -64,6 +76,7 @@ const landlordControllers = {
     createProperty,
     updateProperty,
     deleteProperty, 
+    getPropertiesByLandlord,
     getRentalByLandlord,
     updateRentalByLandlord
 }

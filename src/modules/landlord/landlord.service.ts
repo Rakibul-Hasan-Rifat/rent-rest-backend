@@ -1,11 +1,18 @@
 import { Prisma, RentalRequestStatus } from "../../../prisma/generated/prisma/client"
 import prisma from "../../lib/prisma"
+import AppError from "../../utils/app-error"
 
 const insertPropertyIntoDb = async (payload: Prisma.PropertyCreateInput) => {
 
     const response = await prisma.property.create({ data: { ...payload } })
 
     return response
+}
+
+const getPropertiesFromDb = async (landlordId: string) => {
+    const response = await prisma.property.findMany({ where: { landlordId } })
+
+    return response;
 }
 
 const updatePropertyByIdIntoDb = async (propertyId: string, payload: Prisma.PropertyUpdateInput) => {
@@ -22,7 +29,18 @@ const updatePropertyByIdIntoDb = async (propertyId: string, payload: Prisma.Prop
     return response
 }
 
-const deletePropertyByIdFromdb = async (propertyId: string) => {
+const deletePropertyByIdFromdb = async (landlordId: string, propertyId: string) => {
+
+    const property = await prisma.property.findFirst({ where: { id: propertyId } })
+
+    if (!property) {
+        throw new AppError(404, "Property not found");
+    }
+
+    if (property?.landlordId !== landlordId) {
+        throw new AppError(403, "Permission denied for you.")
+    }
+
     await prisma.property.delete({
         where: {
             id: propertyId
@@ -33,7 +51,7 @@ const deletePropertyByIdFromdb = async (propertyId: string) => {
 }
 
 const retrieveRentalByLandlord = async (landlordId: string) => {
-    const response = await prisma.rentalRequest.findMany({where: {property: {landlordId}}, include: {property: true}})
+    const response = await prisma.rentalRequest.findMany({ where: { property: { landlordId } }, include: { property: true } })
     return response
 }
 
@@ -47,6 +65,7 @@ const updateRentalStatusIntoDb = async (rentalId: string, status: RentalRequestS
 
 const landlordServices = {
     insertPropertyIntoDb,
+    getPropertiesFromDb,
     updatePropertyByIdIntoDb,
     deletePropertyByIdFromdb,
     retrieveRentalByLandlord,

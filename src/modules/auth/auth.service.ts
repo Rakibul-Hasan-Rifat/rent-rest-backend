@@ -16,7 +16,10 @@ const registerUser = async (payload: Prisma.UserCreateInput) => {
         data: {
             ...payload,
             password: hashedPassword
-        }
+        },
+        omit: {
+            password: true
+        },
     })
 
     return response;

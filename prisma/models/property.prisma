@@ -9,7 +9,7 @@ model Property {
     latitude      Float?
     longitude     Float?
     price         Decimal             @db.Decimal(10, 2)
-    pricePeriod   PropertyPricePeriod @default(MONTHLY)
+    pricePeriod   PropertyPricePeriod @default(DAILY)
     bedrooms      String?
     bathrooms     String?
     areaSqft      String?
@@ -18,11 +18,11 @@ model Property {
     createdAt     DateTime            @default(now())
     updatedAt     DateTime            @updatedAt
     
-    landlordId    String?
-    landlord      User?               @relation(fields: [landlordId], references: [id])
+    landlordId    String
+    landlord      User               @relation(fields: [landlordId], references: [id])
     categoryId    String?
     category      Category?           @relation(fields: [categoryId], references: [id])
-    rentalRequest RentalRequest?
+    rentalRequest RentalRequest[]
     review        Review[]
 
     @@map("properties")
