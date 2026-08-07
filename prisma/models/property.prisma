@@ -8,7 +8,7 @@ model Property {
     zipCode       Int?
     latitude      Float?
     longitude     Float?
-    price         Decimal
+    price         Decimal             @db.Decimal(10, 2)
     pricePeriod   PropertyPricePeriod @default(MONTHLY)
     bedrooms      String?
     bathrooms     String?

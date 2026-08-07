@@ -8,9 +8,12 @@ import categoryRouter from "./modules/category/category.router";
 import rentalRouter from "./modules/rental-request/rental.router";
 import adminRouter from "./modules/admin/admin.route";
 import landlordRouter from "./modules/landlord/landlord.route";
+import paymentRouter from "./modules/payment/payment.route";
+import { webhook } from "./modules/payment/payment.controller";
 
 const app: Application = express();
 
+app.use("/api/v1/payment/webhook", express.raw({ type: "application/json"}), webhook);
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api/v1/auth", authRouter);
@@ -19,6 +22,7 @@ app.use("/api/v1/landlord", landlordRouter);
 app.use("/api/v1/rentals", rentalRouter);
 app.use("/api/v1/properties", propertyRouter);
 app.use("/api/v1/categories", categoryRouter);
+app.use("/api/v1/payment", paymentRouter);
 
 app.get("/", (req: Request, res: Response) => {
     res.status(200).json({

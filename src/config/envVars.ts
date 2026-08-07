@@ -12,6 +12,8 @@ type EnvVariables = {
     db_url: string
     jwt_access_secret: string
     jwt_refresh_secret: string
+    stripe_secret_key: string
+    stripe_webhook_secret: string
 }
 
 const envVars: EnvVariables = {
@@ -21,6 +23,8 @@ const envVars: EnvVariables = {
     db_url: env.DATABASE_URL!,
     jwt_access_secret: env.JWT_ACCESS_SECRET!,
     jwt_refresh_secret: env.JWT_REFRESH_SECRET!,
+    stripe_secret_key: env.STRIPE_SECRET_KEY!,
+    stripe_webhook_secret: env.STRIPE_WEBHOOK_SECRET!
 };
 
 export default envVars;
