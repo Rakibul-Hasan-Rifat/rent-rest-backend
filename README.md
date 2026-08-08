@@ -1,4 +1,4 @@
-# RentNest 🏠 — Project Description Document
+# [RentNest](https://rent-nest-five.vercel.app/) 🏠 — Project Description Document
 
 **"Find & List Rental Properties with Ease"**
 
@@ -35,7 +35,7 @@ Users select a role (`tenant` or `landlord`) at registration. `admin` is a privi
 
 ---
 
-## 3. Authentication & Authorization
+## Authentication & Authorization
 
 ### Mechanism
 - **JWT (JSON Web Token)**-based authentication.
