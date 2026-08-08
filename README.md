@@ -6,7 +6,7 @@ A backend API for a rental property marketplace connecting **Tenants** who searc
 
 ---
 
-## 1. Project Overview
+## Project Overview
 
 RentNest is a role-based rental property marketplace API. It supports three core workflows:
 
@@ -18,7 +18,7 @@ The system is built around five key domains: **Authentication**, **Property List
 
 ---
 
-## 2. Roles & Permissions
+## Roles & Permissions
 
 Users select a role (`tenant` or `landlord`) at registration. `admin` is a privileged role, typically seeded/assigned manually rather than self-registered.
 
@@ -60,9 +60,9 @@ Users select a role (`tenant` or `landlord`) at registration. `admin` is a privi
 
 ---
 
-## 5. API Endpoints
+## API Endpoints
 
-### 5.1 Authentication
+### Authentication
 | Method | Endpoint | Access | Description |
 |---|---|---|---|
 | POST | `/api/v1/auth/register` | Public | Register new user (tenant/landlord) |
@@ -70,14 +70,14 @@ Users select a role (`tenant` or `landlord`) at registration. `admin` is a privi
 | post | `/api/v1/auth/logout` | Authenticated | Get current authenticated user |
 | post | `/api/v1/auth/refresh-token` | Authenticated | Get current authenticated user |
 
-### 5.2 Properties (Public)
+### Properties (Public)
 | Method | Endpoint | Access | Description |
 |---|---|---|---|
 | GET | `/api/v1/properties` | Public | Get all properties with filters (location, price, type) |
 | GET | `/api/v1/properties/:id` | Public | Get property details |
 | GET | `/api/v1/categories` | Public | Get all property categories |
 
-### 5.3 Landlord Management
+### Landlord Management
 | Method | Endpoint | Access | Description |
 |---|---|---|---|
 | POST | `/api/v1/landlord/properties` | Landlord | Create new property listing |
@@ -86,14 +86,14 @@ Users select a role (`tenant` or `landlord`) at registration. `admin` is a privi
 | GET | `/api/v1/landlord/requests` | Landlord | Get all rental requests for landlord's properties |
 | PATCH | `/api/v1/landlord/requests/:id` | Landlord (owner) | Approve or reject a rental request |
 
-### 5.4 Rental Requests
+### Rental Requests
 | Method | Endpoint | Access | Description |
 |---|---|---|---|
 | POST | `/api/vq/rentals` | Tenant | Submit a rental request |
 | GET | `/api/v1/rentals` | Authenticated | Get current user's rental requests |
 | GET | `/api/v1/rentals/:id` | Authenticated (owner) | Get rental request details |
 
-### 5.5 Payments (Stripe / SSLCommerz)
+### Payments (Stripe / SSLCommerz)
 | Method | Endpoint | Access | Description |
 |---|---|---|---|
 | POST | `/api/payments/create` | Tenant | Create a payment intent/session for an approved rental |
@@ -101,12 +101,12 @@ Users select a role (`tenant` or `landlord`) at registration. `admin` is a privi
 | GET | `/api/payments` | Tenant | Get user's payment history |
 | GET | `/api/payments/:id` | Tenant (owner) | Get payment details |
 
-### 5.6 Reviews
+### Reviews
 | Method | Endpoint | Access | Description |
 |---|---|---|---|
 | POST | `/api/v1/reviews` | Tenant | Create review (only after a completed rental) |
 
-### 5.7 Admin
+### Admin
 | Method | Endpoint | Access | Description |
 |---|---|---|---|
 | GET | `/api/admin/users` | Admin | Get all users |
@@ -118,7 +118,7 @@ Users select a role (`tenant` or `landlord`) at registration. `admin` is a privi
 
 ---
 
-## 6. Business Rules & Workflow
+## Business Rules & Workflow
 
 ### Rental Request Lifecycle
 ```
@@ -145,7 +145,7 @@ Register → Create Listings → View Requests → Approve/Reject → Manage Pro
 
 ---
 
-## 7. Tech Stack
+## Tech Stack
 
 See the repository's `README.md` for the full, authoritative technology specification. In general, this class of project expects:
 - **Backend**: Node.js / Express
@@ -156,7 +156,7 @@ See the repository's `README.md` for the full, authoritative technology specific
 
 ---
 
-## 8. Summary Table
+## Summary Table
 
 | Domain | Primary Entities | Primary Roles Involved |
 |---|---|---|
