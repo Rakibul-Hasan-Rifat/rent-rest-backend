@@ -27,7 +27,7 @@ adminRouter.get(
 );
     
 adminRouter.get(
-    "/rentals", 
+    "/rental-requests", 
     checkAuth(UserRole.ADMIN),
     adminControllers.getAllRentals
 );

@@ -26,7 +26,8 @@ const retrieveAllRentals = async () => {
 const updateUserStatus = async (userId: string, status: UserStatus) => {
     const response = await prisma.user.update({
         where: { id: userId },
-        data: { status }
+        data: { status },
+        omit: { password: true }
     });
     return response;
 };
