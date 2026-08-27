@@ -43,14 +43,6 @@ Users select a role (`tenant` or `landlord`) at registration. `admin` is a privi
 - Protected routes require a valid JWT (commonly via `req.cookies`).
 - **Role-based access control (RBAC)** middleware guards role-specific route groups (`/api/v1/landlord/*`, `/api/v1/admin/*`).
 
-### Auth Endpoints
-
-| Method | Endpoint | Access | Description |
-|---|---|---|---|
-| POST | `/api/auth/register` | Public | Register a new user as `tenant` or `landlord`; role chosen at signup |
-| POST | `/api/auth/login` | Public | Authenticate user credentials, return a JWT |
-| GET | `/api/auth/me` | Authenticated | Return the currently logged-in user's profile from the token |
-
 ### Suggested Auth Flow
 1. User submits registration data (name, email, password, role, phone, etc.).
 2. Password is hashed (e.g., bcrypt) before storage.

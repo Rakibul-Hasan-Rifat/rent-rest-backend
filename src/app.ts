@@ -1,3 +1,4 @@
+import cors from "cors";
 import express, { Application,  Request, Response } from "express";
 import notFound from "./middlewares/not-found";
 import globalError from "./middlewares/global-error";
@@ -10,13 +11,19 @@ import adminRouter from "./modules/admin/admin.route";
 import landlordRouter from "./modules/landlord/landlord.route";
 import paymentRouter from "./modules/payment/payment.route";
 import { webhook } from "./modules/payment/payment.controller";
+import userRouter from "./modules/user/user.router";
 
 const app: Application = express();
 
 app.use("/api/v1/payment/webhook", express.raw({ type: "application/json"}), webhook);
+app.use(cors({
+    origin: ["http//:localhost:3000", "https://rent-rest-frontend.vercel.app"],
+    credentials: true
+}))
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/users", userRouter);
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/landlord", landlordRouter);
 app.use("/api/v1/rentals", rentalRouter);
