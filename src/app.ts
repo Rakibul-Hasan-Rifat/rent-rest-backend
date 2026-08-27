@@ -16,12 +16,12 @@ import userRouter from "./modules/user/user.router";
 const app: Application = express();
 
 app.use("/api/v1/payment/webhook", express.raw({ type: "application/json"}), webhook);
+app.use(cookieParser());
 app.use(cors({
-    origin: ["http//:localhost:3000", "https://rent-rest-frontend.vercel.app"],
+    origin: ["http://localhost:3000", "http://192.168.0.113:3000", "https://rent-rest-frontend.vercel.app"],
     credentials: true
 }))
 app.use(express.json());
-app.use(cookieParser());
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/admin", adminRouter);

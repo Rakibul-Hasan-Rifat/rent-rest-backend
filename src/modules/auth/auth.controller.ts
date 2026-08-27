@@ -19,17 +19,17 @@ const login = catchAsync(async (req: Request, res: Response, next: NextFunction)
     const result = await authServices.loginService(req.body)
 
     res.cookie("access-token", result.accessToken, {
-        maxAge: 1000 * 60 * 60 * 24 * 3,
+        maxAge: 1000 * 60 * 60 * 24,
         httpOnly: true,
-        sameSite: "lax",
         secure: envVars.node_env === "production",
+        sameSite: envVars.node_env === "production" ? "none" : "lax"
     })
 
     res.cookie("refresh-token", result.refreshToken, {
         maxAge: 1000 * 60 * 60 * 24 * 7,
         httpOnly: true,
-        sameSite: "lax",
-        secure: envVars.node_env === "production"
+        secure: envVars.node_env === "production",
+        sameSite: envVars.node_env === "production" ? "none" : "lax"
     })
 
     sendResponse(res, {

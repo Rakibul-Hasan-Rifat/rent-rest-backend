@@ -5,10 +5,8 @@ import userServices from "./user.service";
 import { NextFunction, Request, Response } from "express";
 
 const getMe = catchAsync(async(req: Request, res: Response, next: NextFunction) => {
-    console.log("user controller")
+
     const result = await userServices.getMeFromDb(req.user as UserPayload)
-
-
 
     sendResponse(res, {
         statusCode: 200,

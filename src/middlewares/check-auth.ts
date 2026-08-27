@@ -9,8 +9,9 @@ import { UserRole } from "../../prisma/generated/prisma/enums";
 const checkAuth = (...roles: UserRole[]) => {
     return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
-        // destructuring token from cookies and throwing errors if not found
-        const { ["access-token"]: accessToken } = req.cookies;
+        // destructuring token from cookies or getting token from headers and throwing errors if not found
+        const accessToken = req.cookies["access-token"] || req.headers.authorization?.split(" ")[1];
+
         if (!accessToken) throw new AppError(401, "Token missing - Access denied. 🤔")
 
         // token verification
