@@ -2,6 +2,7 @@ import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
 import { PrismaClientKnownRequestError, PrismaClientValidationError } from '../../prisma/generated/prisma/internal/prismaNamespace';
 import AppError from '../utils/app-error';
 import envVars from '../config/envVars';
+import { ZodError } from 'zod';
 
 const globalError: ErrorRequestHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
     let statusCode = 500,
@@ -9,10 +10,12 @@ const globalError: ErrorRequestHandler = (err: Error, req: Request, res: Respons
         errorDetails: unknown | null = "Something went wrong in the server.",
         stack = err.stack;
 
-    if (err instanceof AppError) {
-        statusCode = err.statusCode;
-        message = err.message;
-        errorDetails = err.errorDetails
+    if (err instanceof ZodError) {        
+        console.log("ZodError is caught in global error handler: ", err.issues[0], err);
+        console.log(err.issues)
+        statusCode = 400;
+        message = err.issues.map((issue) => issue.message).join(", ") || "Invalid request data";
+        err = err
     } else if (err instanceof PrismaClientKnownRequestError) {
         switch (err.code) {
             case "P2002":
@@ -39,7 +42,11 @@ const globalError: ErrorRequestHandler = (err: Error, req: Request, res: Respons
     } else if (err instanceof PrismaClientValidationError) {
         statusCode = 400;
         message = "Invalid request data";
-    }
+    } else if (err instanceof AppError) {
+        statusCode = err.statusCode;
+        message = err.message;
+        errorDetails = err.errorDetails
+    } 
 
     if (statusCode === 500 && envVars.node_env === "production") {
         errorDetails = null;

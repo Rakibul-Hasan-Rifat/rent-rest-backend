@@ -13,7 +13,7 @@ landlordRouter.post(
     validateSchema(createPropertySchema),
     landlordControllers.createProperty);
 
-    landlordRouter.get(
+landlordRouter.get(
     "/properties",
     checkAuth(UserRole.LANDLORD),
     landlordControllers.getPropertiesByLandlord);
@@ -33,7 +33,7 @@ landlordRouter.get(
     "/rental-requests",
     checkAuth(UserRole.LANDLORD),
     landlordControllers.getRentalByLandlord);
-    
+
 landlordRouter.patch(
     "/rental-requests/:rentalId",
     checkAuth(UserRole.LANDLORD),
